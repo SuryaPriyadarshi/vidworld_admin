@@ -1,0 +1,140 @@
+﻿ <div class="m-content" ng-controller="SettingController">
+                    <!--Begin::Section-->
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="m-portlet custom-form-m-portlet">
+                                <div class="top_nav_pills">
+                                    <ul class="nav nav-pills nav-fill nav-fill-black mb-0" role="tablist">
+                                        <li class="nav-item m-tabs__item">
+                                            <a class="nav-link m-tabs__link active" ui-sref="Setting">
+                                                General Settings
+                                            </a>
+                                        </li>
+                                        <li class="nav-item m-tabs__item">
+                                            <a class="nav-link m-tabs__link" ui-sref="Categories">
+                                                Category/Interest Settings
+                                            </a>
+                                        </li>
+                                        <li class="nav-item m-tabs__item">
+                                            <a class="nav-link m-tabs__link" ui-sref="TermsAndCondition">
+                                                Terms & Conditions
+                                            </a>
+                                        </li>
+                                        <li class="nav-item m-tabs__item">
+                                            <a class="nav-link m-tabs__link" ui-sref="PrivacyPolicy">
+                                                Privacy Policy
+                                            </a>
+                                        </li>
+                                        <li class="nav-item m-tabs__item">
+                                            <a class="nav-link m-tabs__link" ui-sref="AboutUs">
+                                                About Us
+                                            </a>
+                                        </li>
+                                        <li class="nav-item m-tabs__item">
+                                            <a class="nav-link m-tabs__link" ui-sref="ContactUs">
+                                                Contact Us
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="general_settings" role="tabpanel">
+                                        <form class="m-form m-form--fit m-form--label-align-left">
+                                            <div class="m-portlet__head">
+                                                <div class="m-portlet__head-caption">
+                                                    <div class="m-portlet__head-title">
+                                                        <span class="m-portlet__head-icon m--hide">
+                                                            <i class="la la-gear"></i>
+                                                        </span>
+                                                        <h3 class="m-portlet__head-text">
+                                                            Revenue Settings
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="m-portlet__body">
+                                                <div class="form-group m-form__group row">
+                                                    <label for="example-text-input" class="col-sm-5 col-md-4 col-xl-2 col-form-label">
+                                                        Vidworld Revenue Percentage
+                                                    </label>
+                                                    <div class="col-sm-7 col-md-8 col-xl-6">
+                                                        <input class="form-control m-input" type="text" value="" id="example-text-input" ng-model="vm.Revenue">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="m-portlet__head">
+                                                <div class="m-portlet__head-caption">
+                                                    <div class="m-portlet__head-title">
+                                                        <span class="m-portlet__head-icon m--hide">
+                                                            <i class="la la-gear"></i>
+                                                        </span>
+                                                        <h3 class="m-portlet__head-text">
+                                                            Report Settings
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="m-portlet__body">
+                                                <div class="form-group m-form__group row">
+                                                    <label for="example-text-input" class="col-sm-5 col-md-4 col-xl-2 col-form-label">
+                                                        Report Threshold for Users
+                                                    </label>
+                                                    <div class="col-sm-7 col-md-8 col-xl-6">
+                                                        <input class="form-control m-input" type="text" value="" id="example-text-input" ng-model="vm.TUsers">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label for="example-text-input" class="col-sm-5 col-md-4 col-xl-2 col-form-label">
+                                                        Report Threshold for Posts
+                                                    </label>
+                                                    <div class="col-sm-7 col-md-8 col-xl-6">
+                                                        <input class="form-control m-input" type="text" value="" id="example-text-input" ng-model="vm.TPosts">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <label for="example-text-input" class="col-sm-5 col-md-4 col-xl-2 col-form-label">
+                                                        Report Threshold for comments
+                                                    </label>
+                                                    <div class="col-sm-7 col-md-8 col-xl-6">
+                                                        <input class="form-control m-input" type="text" value="" id="example-text-input" ng-model="vm.TComments">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="m-portlet__head">
+                                                <div class="m-portlet__head-caption">
+                                                    <div class="m-portlet__head-title">
+                                                        <span class="m-portlet__head-icon m--hide">
+                                                            <i class="la la-gear"></i>
+                                                        </span>
+                                                        <h3 class="m-portlet__head-text">
+                                                            Reviewer's Settings
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="m-portlet__body">
+                                                <div class="form-group m-form__group row">
+                                                    <label for="example-text-input" class="col-sm-5 col-md-4 col-xl-2 col-form-label">
+                                                        Duration of Uneditable Mode
+                                                    </label>
+                                                    <div class="col-sm-7 col-md-8 col-xl-6">
+                                                        <input class="form-control m-input" type="text" value="" id="example-text-input" ng-model="vm.ModeDuration">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group m-form__group row">
+                                                    <div class="col-sm-12 text-right">
+                                                        <button class="btn btn-primary" ng-click="vm.SetSetting()">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--End::Section-->
+                </div>
+           
+

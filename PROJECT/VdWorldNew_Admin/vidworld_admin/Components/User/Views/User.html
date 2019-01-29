@@ -1,0 +1,212 @@
+﻿<div class="m-content ateet" ng-controller="UserController">
+    <!--Begin::Section-->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item">
+                                <div class="m-input-icon m-input-icon--left">
+                                    <input type="text" class="form-control m-input m-input--pill" placeholder="Search" ng-model="vm.SearchUser" ng-change="vm.searchList(vm.SearchUser,1)">
+                                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="m-portlet__nav-item">
+                                <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="click" aria-expanded="true">
+                                    <a class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link filter">
+                                        <i class="fa fa-filter"></i>
+                                    </a>
+                                    <div class="m-dropdown__wrapper">
+                                        <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                        <div class="m-dropdown__inner">
+                                            <div class="m-dropdown__body">
+                                                <div class="m-dropdown__content">
+                                                    <ul class="m-nav">
+                                                        <li class="m-nav__item">
+                                                            <a href="" class="m-nav__link" ng-click="vm.orderByMe('Age')">
+                                                                <i class="m-nav__link-icon fa fa-birthday-cake"></i>
+                                                                <span class="m-nav__link-text">
+                                                                    Age
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="m-nav__item">
+                                                            <a href="" class="m-nav__link" ng-click="vm.orderByMe('Block')">
+                                                                <i class="m-nav__link-icon fa fa-ban"></i>
+                                                                <span class="m-nav__link-text">
+                                                                    Block/Unblock
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="m-nav__item">
+                                                            <a href="" class="m-nav__link" ng-click="vm.orderByMe('Country')">
+                                                                <i class="m-nav__link-icon fa fa-flag"></i>
+                                                                <span class="m-nav__link-text">
+                                                                    Country
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered m-table m-table--border-brand m-table--head-bg-brand">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Sr. No.
+                                    </th>
+                                    <th>
+                                        Display Name
+                                    </th>
+                                    <th>
+                                        Username
+                                    </th>
+                                    <th>
+                                        Age
+                                    </th>
+                                    <th>
+                                        Email ID
+                                    </th>
+                                    <th>
+                                        Mobile
+                                    </th>
+                                    <th>
+                                        Country
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="(key,item) in  vm.UserList | orderBy:vm.myOrderBy ">
+                                    <td scope="row">
+                                        {{key+((currentPage - 1) * 10)+1}}
+                                    </td>
+                                    <td>
+                                        {{item.DisplayName}}
+                                    </td>
+                                    <td>
+                                        {{item.Username}}
+                                    </td>
+                                    <td>
+                                        {{item.Age}}
+                                    </td>
+                                    <td>
+                                        {{item.Email}}
+                                    </td>
+                                    <td>
+                                        {{item.PhoneNumber}}
+                                    </td>
+                                    <td>
+                                        {{item.Country}}
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-success btn-sm" ng-click="vm.GetUserProfileId(item)">View</a>
+                                        <a class="btn btn-secondary btn-sm" ng-click="vm.BlockUser(item)">{{item.Block}}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                                  
+                        <!--<div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="dataTables_paginate paging_full_numbers">
+                                    <ul class="pagination">
+                                        <!--<li class="page-item first disabled">
+                                            <a class="page-link"><i class="la la-angle-double-left"></i></a>
+                                        </li>
+                                        <li class="page-item previous disabled"><a class="page-link"><i class="la la-angle-left" ng-click="prevPage()"></i></a></li>
+                                        <!--<li class="page-item active"><a class="page-link">1</a></li>
+                                        <li class="page-item"><a class="page-link">2</a></li>
+                                        <li class="page-item next"><a class="page-link"><i class="la la-angle-right" ng-click="nextPage()"></i></a></li>
+                                        <!--<li class="page-item last"><a class="page-link"><i class="la la-angle-double-right" ></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                    <div class="paging text-right">
+                        <a ng-show="currentPage>1" ng-click="prevPage()" class="btn btn-info">« Prev</a>
+                        <a ng-click="nextPage()" ng-show="(vm.UserList.length >= 10 && totalCount > currentPage * pageSize)" class="btn btn-info">Next »</a>
+                    </div>                     
+                </div>
+            </div>
+            <div class="modal fade" id="new_reviewer" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                New Reviewer
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">
+                                    &times;
+                                </span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="form-control-label">
+                                        Name:
+                                    </label>
+                                    <input type="text" class="form-control" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email-text" class="form-control-label">
+                                        Email:
+                                    </label>
+                                    <input type="text" class="form-control" id="email-text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone-text" class="form-control-label">
+                                        Phone:
+                                    </label>
+                                    <input type="text" class="form-control" id="phone-text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password-text" class="form-control-label">
+                                        Assign Password:
+                                    </label>
+                                    <input type="password" class="form-control" id="password-text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Confirm-text" class="form-control-label">
+                                        Confirm Password:
+                                    </label>
+                                    <input type="password" class="form-control" id="Confirm-text">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Cancel
+                            </button>
+                            <button type="button" class="btn btn-info">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!--End::Section-->
+</div>
