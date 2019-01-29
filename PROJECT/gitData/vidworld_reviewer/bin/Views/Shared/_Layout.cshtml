@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+
+    <script src="~/Scripts/Angular/angular.js"></script>
+    <script src="~/Scripts/Angular/appScope.js"></script>
+    @*<script src="~/Scripts/angular.min.js"></script>*@
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/Js_Controllers/Reviewer.Js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="~/Content/Js/custom.js"></script>
+    @Scripts.Render("~/bundles/modernizr")
+
+    <script src="~/Scripts/Angular/ngTable/ng-table.js"></script>
+    <script src="~/Scripts/Angular/ngStorage.js"></script>
+    <script src="~/Scripts/Angular/ngFramework.js"></script>
+    <script src="~/Scripts/Angular/angular-sanitize.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script src="~/Scripts/Angular/paging.js"></script>
+    <script src="~/Scripts/Angular/angular-cookies.min.js"></script>
+    <script src="~/Scripts/Angular/appConstant.js"></script>
+
+    <script src="~/Scripts/ngHashtags.js"></script>
+
+    @*<script src="~/Scripts/sweetalert/sweet-alert.min.js"></script>
+    <script src="~/Scripts/sweetalert/SweetAlert.js"></script>*@
+
+</head>
+<body ng-app="myApp">
+    <div class="wrapper">
+        <header class="header">
+            <div class="container">
+                <div class="logo">
+                    <a href="#"><img src="~/Content/images/logo.png" alt="" /></a>
+                </div>
+
+                <div class="user">
+                    <a href="~/Review/Review_Login">LOGOUT</a>
+                </div>
+
+            </div>
+        </header>
+
+        @RenderBody()
+
+        <footer class="footer">
+            <div class="container">
+                <ul>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Terms &amp; Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+    @*<div class="popup large" data-pop="advt">
+        <div class="popup-head">
+            <div class="popup-head-left"></div>
+            <div class="popup-head-right">
+                <a href="#" class="action-btn">Back</a>
+                <button class="close"><i class="icon-cross"></i></button>
+            </div>
+        </div>
+        <div class="advt-searh">
+            <i class="icon-search_dropdown"></i>
+            <input name="search" placeholder="Search" autofocus="autofocus" type="search">
+        </div>
+        <div class="popup-body advt-pop">
+            <ul class="ads">
+                <li>
+                    <img src="~/Content/images/group-5.png" height="425" width="425" alt="">
+                    <label><input type="checkbox"><i class="icon-active"></i></label>
+                    <div class="overlay"><a href="#">Visit</a></div>
+                </li>
+                <li>
+                    <img src="~/Content/images/group-5.png" height="425" width="425" alt="">
+                    <label><input type="checkbox"><i class="icon-active"></i></label>
+                    <div class="overlay"><a href="#">Visit</a></div>
+                </li>
+                <li>
+                    <img src="~/Content/images/group-5.png" height="425" width="425" alt="">
+                    <label><input type="checkbox"><i class="icon-active"></i></label>
+                    <div class="overlay"><a href="#">Visit</a></div>
+                </li>
+                <li>
+                    <img src="~/Content/images/group-5.png" height="425" width="425" alt="">
+                    <label><input type="checkbox"><i class="icon-active"></i></label>
+                    <div class="overlay"><a href="#">Visit</a></div>
+                </li>
+                <li>
+                    <img src="~/Content/images/group-5.png" height="425" width="425" alt="">
+                    <label><input type="checkbox"><i class="icon-active"></i></label>
+                    <div class="overlay"><a href="#">Visit</a></div>
+                </li>
+                <li>
+                    <img src="~/Content/images/group-5.png" height="425" width="425" alt="">
+                    <label><input type="checkbox"><i class="icon-active"></i></label>
+                    <div class="overlay"><a href="#">Visit</a></div>
+                </li>
+                <li>
+                    <img src="~/Content/images/group-5.png" height="425" width="425" alt="">
+                    <label><input type="checkbox"><i class="icon-active"></i></label>
+                    <div class="overlay"><a href="#">Visit</a></div>
+                </li>
+                <li>
+                    <img src="~/Content/images/group-5.png" height="425" width="425" alt="">
+                    <label><input type="checkbox"><i class="icon-active"></i></label>
+                    <div class="overlay"><a href="#">Visit</a></div>
+                </li>
+                <li>
+                    <img src="~/Content/images/group-5.png" height="425" width="425" alt="">
+                    <label><input type="checkbox"><i class="icon-active"></i></label>
+                    <div class="overlay"><a href="#">Visit</a></div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="popup small" data-pop="reject">
+        <div class="popup-head">
+            <div class="popup-head-left">
+                <h4>Reject Title</h4>
+            </div>
+            <div class="popup-head-right">
+                <button class="close"><i class="icon-cross"></i></button>
+            </div>
+        </div>
+        <div class="popup-body">
+            <select>
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+            </select>
+        </div>
+    </div>
+<script type="text/javascript">
+    /*custompop*/
+    $(document).on("click", "[data-attribute] , [data-attribute] *", function (e) {
+        e.preventDefault();
+        $("[data-pop='" + $(this).attr("data-attribute") + "']").addClass("opened-pop").fadeIn();
+        $("body").addClass("overlay");
+    });
+
+    $(document).on("click", function (e) {
+        if ($(".opened-pop").length > 0 && !$(e.target).is(".opened-pop , .opened-pop  *  , [data-attribute] , [data-attribute] * ")) {
+            $(".opened-pop").fadeOut();
+            $(".popup").removeClass('opened-pop');
+            $("body").removeClass("overlay");
+        }
+    });
+
+    $(".popup-head .close ,.close").click(function () {
+        $(".opened-pop").fadeOut();
+        $(".popup,.pop-div").removeClass('opened-pop');
+        $("body").removeClass("overlay");
+    });
+</script>*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("Js", required: false)
+    @RenderSection("scripts", required: false)
+</body>
+</html>

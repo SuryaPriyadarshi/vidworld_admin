@@ -1,0 +1,278 @@
+﻿@{
+    ViewBag.Title = "Review_Post";
+}
+<script src="~/Content/Js/custom.js"></script>
+<script src="~/Scripts/Js_Controllers/Reviewer.Js"></script>
+<script src="https://www.youtube.com/player_api"></script>
+
+
+<div class="content" ng-controller="Reviewer_Post" ng-init="init(0)">
+    <div class="showbox" style="display:none" id="loader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="container" ng-show="noPost">
+        <div>
+            <h4> No Post Available for Review !!</h4>
+        </div>
+    </div>
+    
+    <div class="container" ng-show="viewPost">
+        <div class="post-review">
+            <div class="post">
+                <div class="timer" ng-show="timeView"><a ng-click="skip()" class="skip">SKIP</a><span>Time Left</span><br /> {{time}} </div>
+                <div class="timer" ng-show="editView"><span>In Review</span></div>
+                <div class="post-user">
+                    <img ng-src="{{Image?Image:'../../Content/images/profile.jpg'}}" alt="" width="80" height="80">         
+                    <h4>{{UserName}}</h4>
+                    <p>Age: {{Age}}</p>
+                </div>
+                <div class="post-ad" ng-show="s3Url">
+                    <div class="video-thumb" onclick="this.nextElementSibling.style.display = 'block'; this.style.display = 'none'; playVid();" ng-click="stopTimeout()">
+                        <img src={{Thumbnail}} width="640" height="360" />
+                        <img src="~/Content/images/play_small.png" class="video-play-icon" />
+                    </div>
+                    <div class="video" style="display: none;">
+                        <video id="clip" poster={{Thumbnail}} controls preload="auto" width="640" height="360" data-setup="{}" ng-src="{{trustedUrl}}" />
+                    </div>
+                </div>
+                <div class="post-ad" ng-show="youtubeUrl">
+                    <div class="video-thumb" onclick="this.nextElementSibling.style.display = 'block'; this.style.display = 'none'; playVid();" ng-click="stopTimeout()">
+                        <img src={{Thumbnail}} width="640" height="360" />
+                        <img src="~/Content/images/play_small.png" class="video-play-icon" />
+                    </div>
+                    <div class="video" style="display:none;">
+                        <img src="~/Content/images/video_upload_failed.png" ng-show="failed" />
+                        <iframe ng-show="playVideo" id="ut_video" ng-src="{{VideoUrl}}" gesture="media" allow="autoplay" allowfullscreen="" width="640" height="360" frameborder="0"></iframe>
+                    </div>
+                    @*<div class="video" id="ut_video"></div>*@
+
+                </div>
+
+                @*<div class="add-more-product">
+                        <span class="video-status">Video Status : {{status}}</span>
+                        <button ng-click="upload()" ng-disabled="DisableClick">Upload Video</button>
+                    </div>*@
+                <div class="post-content">
+                    <div class="edit-content" ng-hide="editorEnabled">
+                        <h4>{{Title}}</h4>
+                        <a href="" ng-click="enableEditor()">Edit Title</a>
+                    </div>
+                    <div ng-show="editorEnabled" class="edit-field">
+                        <input ng-model="editableTitle" ng-show="editorEnabled" type="text" maxlength="100">
+                        <div class="btn-group">
+                            <a href="" class="btn btn-green" ng-click="save()">Save</a>
+                            <a href="" class="btn btn-red" ng-click="disableEditor()">Cancel</a>
+                        </div>
+                    </div>
+                    <div ng-hide="editorDescriptionEnabled" class="edit-content">
+                        @*<span ng-bind-html="text | highlight"> content</span>*@
+                        <p ng-bind-html="Description | highlight"></p>
+                        <a href="" ng-click="enableDescriptionEditor()">Edit Description</a>
+                    </div>
+                    <div ng-show="editorDescriptionEnabled" class="edit-field">
+                        @*<div id="hashtags-container" ng-hashtags ng-model="editableDescription" ng-show="editorDescriptionEnabled">
+                            </div>*@
+                        <textarea ng-model="editableDescription" ng-show="editorDescriptionEnabled" maxlength="500"></textarea>
+                        <div class="btn-group">
+                            <a href="" class="btn btn-green" ng-click="saveDescription()">Save</a>
+                            <a href="" class="btn btn-red" ng-click="disableDescriptionEditor()">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-title">
+                    ADVERTISEMENTS
+                </div>
+                <div class="products-wrapper">
+                    
+                    @*<div class="products">
+                            <img src="" width="" height="" />
+                        </div>*@
+                    
+                    <div class="products-wrap" ng-repeat="Advertisement in AdvertisementList">
+                        <a ng-click="delete(Advertisement)" class="close"><i class="icon-search_cancel"></i></a>
+                        <a href={{Advertisement.AddLink}} target="_blank" ng-click="stopTimeout()">
+                            <div class="products">
+                                <img ng-src={{Advertisement.ImageLink}} width="" height="" src="~/Content/images/user_image_holder.png" />
+                            </div>
+                            <div class="product-title-wrap">
+                                <h4 class="affiliate-title">{{Advertisement.Title}}</h4>
+                                <p class="affiliate-price">${{Advertisement.Amount}}</p>
+                            </div>
+                        </a>
+                    </div>                                   
+                </div>
+                <div class="add-more-product">
+                    <button class="btn-green" ng-click="saveAdd()" ng-show="add">Save Ad</button>
+                    <button data-attribute="advt" ng-click="setAdd()" class="add-product">Add more Products</button>
+
+                    @*<a href="~/Review/Review_Affliate">Add more Products</a>*@
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-green" ng-click="approvePost(1)" ng-disabled="DisableButton">Approve</button>
+                    <button data-attribute="reject" class="btn btn-red" ng-click="setDefault()">Reject</button>
+                    @*<button class="btn btn-blue" ng-click="skip()">Skip</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup large" data-pop="advt">
+        <div class="popup-head">
+            <div class="popup-head-left"> Search Product </div>
+            <div class="popup-head-right">
+                @*<a href="" class="action-btn">Back</a>*@
+                <button class="close" @*ng-click="clearAdd()"*@><i class="icon-cross"></i></button>
+            </div>
+        </div>
+        @*<div class="advt-searh">
+            <i class="icon-search_dropdown"></i>
+            <input name="search" placeholder="Search" autofocus="autofocus" type="search" ng-model="Keyword" ng-enter="GetAdvertisements(Keyword,1)">
+        </div>*@
+        <div class="ads-top">
+            <ul>
+                <li>
+                    <a href="javascript:void(0)"><i class="icon-back"></i></a>
+                </li>
+                <li class="search">
+                    <div class="ad-search">
+                        <input name="search" placeholder="Search" autofocus="autofocus" type="search" ng-model="Keyword" ng-enter="changeKeyword(Keyword,1)">
+                        <button><i class="icon-search" ng-click="GetAdvertisements(Keyword,1)"></i></button>
+                    </div>
+                </li>
+                <li>
+                    <div class="ad-count">{{SelectedAffiliates.length}}/6</div>
+                </li>
+            </ul>
+        </div>
+        <div class="selected-ads" ng-show="SelectedAffiliates.length > 0">
+            <ul>
+                <li ng-repeat="Advertisement in SelectedAffiliates">
+                    <img src={{Advertisement.ImageLink}} alt="">
+                    <i class="icon-header_search_cancel" ng-click="checkAdds(Advertisement,Keyword)"></i>
+                </li>
+            </ul>
+        </div>
+        <div class="popup-body advt-pop" id="advert_popup">
+            <img id=" myspinner" src="~/Content/images/giphy.gif" ng-show="loading" />
+            <div ng-show="Affiliates.length>0">
+                <ul class="ads">
+                    <li ng-repeat="Affiliate in Affiliates">
+                        <div class="affiliates">
+                            <img src={{Affiliate.ImageLink}} height="425" width="425" alt="">
+                            <label><input type="checkbox" ng-model="Affiliate.IsMapped" ng-click="checkAdds(Affiliate,Keyword)"><i class="icon-active"></i></label>
+                        </div>
+                        <div class="visit"><a href={{Affiliate.AddLink}} target="_blank">Visit</a></div>
+                    </li>
+
+                </ul>
+            </div>
+                <div class="blank-state" ng-show="Affiliates.length==0">
+                    <img src="~/Content/images/no_result_found.png" width="175" alt="" />
+                    <h4>Search ads to attach.</h4>
+                    <p ng-if="vm.IsSearchAddsLengthSmall">Please check the spelling or try searching for something else.</p>
+                </div>
+            </div>
+        <div class="pop-submit-button">
+
+            <a href="" class="btn btn-green pop-close" ng-click="saveAffiliates()">Save</a>
+
+        </div>
+    </div>
+
+ <div class="popup small" data-pop="reject">
+        <div class="popup-head">
+            <div class="popup-head-left">
+                <h4>Reject Reason</h4>
+            </div>
+            <div class="popup-head-right">
+                <button class="close"><i class="icon-cross"></i></button>
+            </div>
+        </div>
+        <div class="popup-body">
+            <div class="reason_wrap">
+                <select ng-model="RejectReasonId" ng-options="x.RejectReasonId as x.Reason for x in ReasonList" required>
+                    <option value="">Select Reason</option>
+                </select>
+                <div class="submit-button">
+                    <a href="" class="btn btn-green pop-close" ng-click="rejectPost()">Save</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup small" data-pop="new">
+        <div class="popup-head">
+            <div class="popup-head-left">
+                <h4>Reject Reason</h4>
+            </div>
+            <div class="popup-head-right">
+                <button class="close"><i class="icon-cross"></i></button>
+            </div>
+        </div>
+        <div class="popup-body">
+            <div class="reason_wrap">
+                <select ng-model="RejectReasonId" ng-options="x.RejectReasonId as x.Reason for x in ReasonList" required>
+                    <option value="">Select Reason</option>
+                </select>
+                <div class="submit-button">
+                    <a href="" class="btn btn-green pop-close" ng-click="rejectPost()">Save</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var vid = document.getElementById("clip");
+
+    function playVid() {
+        vid.play();
+    }
+
+    $(document).ready(function () {
+        $(document).on("click", ".close", function () {
+            $(this).parent('.products').remove();
+            event.preventDefault;
+        });
+
+    });
+
+    $(document).on('click', '.video-thumb', function (ev) {
+      //  debugger;
+        var video_src = $("#ut_video")[0].src;
+        var new_src = video_src.replace('autoplay=0', '');
+        new_src += "&autoplay=1";
+        $("#ut_video")[0].src = new_src;
+        ev.preventDefault();
+    });
+
+    /*custompop*/
+    //$(document).on("click", "[data-attribute] , [data-attribute] *", function (e) {
+    //    e.preventDefault();
+    //    $("[data-pop='" + $(this).attr("data-attribute") + "']").addClass("opened-pop").fadeIn();
+    //    $("body").addClass("overlay");
+    //});
+
+    $(document).on("click", "[data-attribute] , [data-attribute] *", function (e) {
+        e.preventDefault();
+        $("[data-pop='" + $(this).attr("data-attribute") + "']").addClass("opened-pop").fadeIn();
+        $("body").addClass("overlay");
+    });
+
+
+    $(".popup-head .close, .close").click(function () {
+        $(".opened-pop").fadeOut();
+        $(".popup,.pop-div").removeClass('opened-pop');
+        $("body").removeClass("overlay");
+    });
+    //$(".popup-head .close, .close, .popup-body .submit-button a.pop-close, .pop-submit-button a.pop-close").click(function () {
+    //    $(".opened-pop").fadeOut();
+    //    $(".popup,.pop-div").removeClass('opened-pop');
+    //    $("body").removeClass("overlay");
+    //});
+</script>
