@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Vid.World</title>
+    <link href="~/css/style.css" rel="stylesheet" />
+
+    <script src="~/Scripts/Angular/angular.js"></script>
+    <script src="~/Scripts/Angular/appScope.js"></script>
+    @*<script src="~/Scripts/angular.min.js"></script>*@
+    <link href="~/Scripts/sweetalert/sweet-alert.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/Js_Controllers/Reviewer.Js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="~/js/custom.js"></script>
+    @Scripts.Render("~/bundles/modernizr")
+
+    <script src="~/Scripts/Angular/ngTable/ng-table.js"></script>
+    <script src="~/Scripts/Angular/ngStorage.js"></script>
+    <script src="~/Scripts/Angular/ngFramework.js"></script>
+    <script src="~/Scripts/Angular/angular-sanitize.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script src="~/Scripts/Angular/paging.js"></script>
+    <script src="~/Scripts/Angular/angular-cookies.min.js"></script>
+    <script src="~/Scripts/Angular/appConstant.js"></script>
+    <script src="~/Scripts/sweetalert/SweetAlert.js"></script>
+    <script src="~/Scripts/sweetalert/sweet-alert.min.js"></script>
+
+    <script src="~/Scripts/highlight.filter.js"></script>
+    <script src="~/Scripts/ngHashtags.js"></script>
+
+
+</head>
+<body ng-app="myApp" ng-cloak>
+    <div class="main-container">
+        <!-- <div class="sign-up-bg"><img src="images/sign_up2.png" alt=""></div>-->
+        <header class="header-shadow">
+            <div class="container">
+                <div class="logo add-color">VIDWORLD LOGO</div>
+                <nav>
+                    <ul>
+                        <li class="head-icon"><a href="~/User/Home"><i class="icon-home"></i></a></li>
+                        <li class="head-icon"><a href="~/User/General"><i class="icon-search"></i></a></li>
+                        <li class="head-icon"><a href=""><i class="icon-chats"></i></a></li>
+                        <li class="head-icon"><a href="~/User/NotificationSetting"><i class="icon-notificatiobns"></i></a></li>
+                        <li class="head-icon"><a href="~/User/General"><i class="icon-settings"></i></a></li>
+                        <li>
+                            <div class="search-sec">
+                                <i class="icon-header_search"></i>
+                                <input type="text" placeholder="Search VidWorld">
+                                <div class="search-result profle">
+                                    <ol class="suggestions-list">
+                                        <li>
+                                            <img src="~/images/group-5.png" alt="" width="70" height="70">
+                                            <h4>jona_jo</h4>
+                                            <p>Trisha Geller</p>
+                                        </li>
+                                        <li>
+                                            <img src="~/images/group-5.png" alt="" width="70" height="70">
+                                            <h4>jona_jo</h4>
+                                            <p>Trisha Geller</p>
+                                        </li>
+                                        <li>
+                                            <img src="~/images/group-5.png" alt="" width="70" height="70">
+                                            <h4>jona_jo</h4>
+                                            <p>Trisha Geller</p>
+                                        </li>
+                                        <li>
+                                            <img src="~/images/group-5.png" alt="" width="70" height="70">
+                                            <h4>jona_jo</h4>
+                                            <p>Trisha Geller</p>
+                                        </li>
+                                        <li>
+                                            <img src="~/images/group-5.png" alt="" width="70" height="70">
+                                            <h4>jona_jo</h4>
+                                            <p>Trisha Geller</p>
+                                        </li>
+                                        <li>
+                                            <img src="~/images/group-5.png" alt="" width="70" height="70">
+                                            <h4>jona_jo</h4>
+                                            <p>Trisha Geller</p>
+                                        </li>
+                                        <li>
+                                            <img src="~/images/group-5.png" alt="" width="70" height="70">
+                                            <h4>jona_jo</h4>
+                                            <p>Trisha Geller</p>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        @RenderBody()
+
+        <footer class="small">
+            <div class="container">
+                <div class="footer-sec">
+                    <div class="copyrite-txt">
+                        <p>&#64; 2017 VidWorld </p>
+                    </div>
+                    <ul class="helpful-link">
+                        <li><a href="#">ABOUT US</a></li>
+                        <li><a href="#">TERMS AND CONDITIONS</a></li>
+                        <li><a href="#">PRIVACY POLICY</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+        <div class="side-icons">
+            <div class="iconcam">
+                <a href="~/User/UploadVideo"><i class="icon-upload"></i></a>
+            </div>
+            <div class="iconrepost">
+                <a href="~/User/UploadVideo"><span class="post-icon"> <i class="icon-repost"></i></span></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup small" data-pop="report">
+        <div class="popup-head">
+            <h4>Report</h4>
+            <button class="close"><i class="icon-cross"></i></button>
+        </div>
+        <div class="popup-body">
+            <div class="report-type">
+                <form>
+                    <p>
+                        <input type="radio" name="report-type" id="type1">
+                        <label for="type1">Spam</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="report-type" id="type2">
+                        <label for="type2">Inappropriate</label>
+                    </p>
+                    <div class="submit-button">
+                        <button type="submit">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="popup small" data-pop="push-notification">
+        <div class="popup-head">
+            <h4>Enter Email</h4>
+            <button class="close"><i class="icon-cross"></i></button>
+        </div>
+        <div class="popup-body">
+            <div class="push-notification">
+                <form>
+                    <p>
+                        <input type="text" name="" placeholder="Enter Email">
+                    </p>
+                    <div class="submit-button">
+                        <button type="submit">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>
+        @Html.Partial("Popups")
+        </div>
+        <style type="text/css">
+            [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+                display: none !important;
+            }
+        </style>
+
+
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("Js", required: false)
+        @RenderSection("scripts", required: false)
+</body>
+</html>
+
