@@ -1,0 +1,288 @@
+﻿ <!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-4">
+        <!-- Begin: life time stats -->
+        <div class="portlet box blue-steel">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-thumb-tack"></i>Trip Stats
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-line">
+                    <div class="tab-content">
+                        <div class="table-scrollable table-scrollable-borderless">
+                            <table class="table table-hover table-light">
+                                <tbody>
+                                    <tr>
+                                        <td>Trip Id</td>
+                                        <td>{{tripDetailsModel.TripBasicInfo.TripID}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pick up date</td>
+                                        <td>{{tripDetailsModel.TripBasicInfo.PickupDate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pick up time</td>
+                                        <td>{{tripDetailsModel.TripBasicInfo.PickupTime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status</td>
+                                        <td>{{tripDetailsModel.TripBasicInfo.Status|tripstatus}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Booking Type</td>
+                                        <td>{{tripDetailsModel.TripBasicInfo.BookingType|bookingtype}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+    <div class="col-md-4">
+        <!-- Begin: life time stats -->
+        <div class="portlet box blue-steel">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-thumb-tack"></i>Customer Information
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-line">
+                    <div class="tab-content">
+                        <div class="portlet light profile-sidebar-portlet">
+                            <!-- SIDEBAR USERPIC -->
+                            <div class="profile-userpic">
+                                <img class="avatar" style="height:50px;width:50px" ng-show="tripDetailsModel.CustomerDetails.ProfileImage" ng-src={{tripDetailsModel.CustomerDetails.ProfileImage}} alt="Customer image" />
+                                <img class="avatar" style="height:50px;width:50px" ng-hide="tripDetailsModel.CustomerDetails.ProfileImage" ng-src="~/Images/avatar.png" alt="Customer image" />
+                            </div>
+                            <!-- END SIDEBAR USERPIC -->
+                            <!-- SIDEBAR USER TITLE -->
+                            <div class="profile-usertitle">
+                                <div class="profile-usertitle-name">
+                                    Name : <label>{{tripDetailsModel.CustomerDetails.CustomerName}}</label>
+                                </div>
+                                <div class="profile-usertitle-job">
+                                    Email : <label>{{tripDetailsModel.CustomerDetails.Email}}</label>
+                                </div>
+                                <div class="profile-usertitle-job">
+                                    Mobile Number : <label>{{tripDetailsModel.CustomerDetails.MobileNumber}}</label>
+                                </div>
+                            </div>
+                            <!-- END SIDEBAR USER TITLE -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+
+    <div class="col-md-4">
+        <!-- Begin: life time stats -->
+        <div class="portlet box blue-steel">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-thumb-tack"></i>Driver Information
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-line">
+                    <div class="tab-content">
+                        <div class="portlet light profile-sidebar-portlet">
+                            <!-- SIDEBAR USERPIC -->
+                            <div class="profile-userpic">
+                                <img class="avatar" style="height:50px;width:50px" ng-show="tripDetailsModel.DriverDetails.ProfileImage" ng-src={{tripDetailsModel.DriverDetails.ProfileImage}} alt="Driver image" />
+                                <img class="avatar" style="height:50px;width:50px" ng-hide="tripDetailsModel.DriverDetails.ProfileImage" ng-src=@Url.Content("~/Images/avatar.png") alt="Driver image" />
+                            </div>
+                            <!-- END SIDEBAR USERPIC -->
+                            <!-- SIDEBAR USER TITLE -->
+                            <div class="profile-usertitle">
+                                <div class="profile-usertitle-name">
+                                    Name : <label>{{tripDetailsModel.DriverDetails.DriverName}}</label>
+                                </div>
+                                <div class="profile-usertitle-job">
+                                    Email : <label>{{tripDetailsModel.DriverDetails.Email}}</label>
+                                </div>
+                                <div class="profile-usertitle-job">
+                                    Mobile Number : <label>{{tripDetailsModel.DriverDetails.MobileNumber}}</label>
+                                </div>
+                            </div>
+                            <!-- END SIDEBAR USER TITLE -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <!-- Begin: life time stats -->
+        <div class="portlet box blue-steel">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-thumb-tack"></i>Pick Up Address
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-line">
+                    <div class="tab-content">
+                        <label>{{tripDetailsModel.PickUpLocation.Address}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+    <div class="col-md-6">
+        <!-- Begin: life time stats -->
+        <div class="portlet box blue-steel">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-thumb-tack"></i>Drop Off Address
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-line">
+                    <div class="tab-content">
+                        <label>{{tripDetailsModel.DropOffLocation.Address}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <!-- Begin: life time stats -->
+        <div class="portlet box blue-steel">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-thumb-tack"></i>Fare Breakup
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-line">
+                    <div class="tab-content">
+                        <div class="table-scrollable table-scrollable-borderless">
+                            <table class="table table-hover table-light">
+                                <tbody>
+                                    <tr>
+                                        <td>Travel Distance Estimate</td>
+                                        <td>{{tripDetailsModel.FareBreakup.TravelDistanceEstimate|number:2}} KM</td>
+                                    </tr>                          
+                                    <tr>
+                                        <td>Trip Fare</td>
+                                        <td>AED {{tripDetailsModel.FareBreakup.TripFare|number:2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Peak hour Charge</td>
+                                        <td>AED {{tripDetailsModel.FareBreakup.PeakHourCharges|number:2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Travel Time</td>
+                                        <td>{{tripDetailsModel.FareBreakup.TotalTravelTime|number:2}} MIN</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Price Per Min Fare</td>
+                                        <td>AED {{tripDetailsModel.FareBreakup.PricePerMinFare|number:2}}</td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <td>Service Tax</td>
+                                        <td>AED {{tripDetailsModel.FareBreakup.ServiceTax|number:2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Waiting Charge</td>
+                                        <td>AED {{tripDetailsModel.FareBreakup.WaitingCharges|number:2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Waiting Time</td>
+                                        <td>{{tripDetailsModel.FareBreakup.WaitingTime|number:2}}</td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <td>PromoCode Value</td>
+                                        <td ng-show="tripDetailsModel.FareBreakup.Promocode.PromocodeID>0">{{tripDetailsModel.FareBreakup.Promocode.Value}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Total</b></td>
+                                        <td><b>AED {{tripDetailsModel.FareBreakup.TotalFare|number:2}}</b></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><b>Rates</b></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-danger">Travel Rate</td>
+                                        <td>AED {{tripDetailsModel.FareBreakup.TravelRate|number:2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Price Per Min Rate</td>
+                                        <td>AED {{tripDetailsModel.FareBreakup.PricePerMinRate|number:2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Waiting Rate</td>
+                                        <td>AED {{tripDetailsModel.FareBreakup.WaitingRate|number:2}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+    <div class="col-md-6">
+        <!-- Begin: life time stats -->
+        <div class="portlet box blue-steel">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-thumb-tack"></i>Tracking
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-line">
+                    <div class="tab-content">
+                        <div class="portlet-body">
+
+                            <div class="table-scrollable table-scrollable-borderless">
+                                <table class="table table-hover table-light">
+                                    <thead>
+                                        <tr class="uppercase">
+                                            <th>
+                                                STATUS
+                                            </th>
+                                            <th>
+                                                DATE
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="t in tripDetailsModel.Tracking">
+                                        <tr>
+                                            <td>{{t.Status|tripstatus}}</td>
+                                            <td>{{t.Date}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+</div>
+<!-- END PAGE CONTENT-->

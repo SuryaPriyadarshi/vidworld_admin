@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "UploadVideo";
+    Layout = "~/Views/Shared/User_Layout.cshtml";
+}
+
+<div class="mid-container">
+    <section class="edit-profile-sec">
+        <div class="container">
+            <div class="pro-edit-sec">
+                <div class="pro-img">
+                    <div class="edit-img">
+                        <img src="~/images/group-2.png">
+                        <!--<label class="upload-img">
+                                <input type="file">
+                                <span><img src="images/video_camera_repost.png"></span>
+                        </label>-->
+                    </div>
+                </div>
+                <div class="pro-form">
+                    <div class="pro-form-1 sinup-form-sec">
+                        <form>
+                            <div class="text-tab">
+                                <input type="text" placeholder="Give Title">
+                                <span class="inp-error">Give a title</span>
+                            </div>
+                            <div class="text-tab drop-tab selectBox">
+                                <span class='selected placeholder-styl'>Select Category</span>
+                                <span class="selectArrow"><i class="icon-dropdown_icon"></i></span>
+                                <ul class="selectOptions">
+                                    <li class="selectOption"> Select Category </li>
+                                    <li class="selectOption" data-value="Music"> Music </li>
+                                    <li class="selectOption" data-value="Entertainment">Entertainment </li>
+                                    <li class="selectOption" data-value="Art"> Art </li>
+                                    <li class="selectOption" data-value="Fashion"> Fashion </li>
+                                </ul>
+                            </div>
+                            <div class="text-tab drop-tab">
+                                <span class="con-icon">
+                                    <label>
+                                        <input type="file">
+                                        <i class="icon-get_link"></i>
+                                    </label>
+                                </span>
+                                <input type="text" class="code-con link-blue" placeholder="Get Link">
+                            </div>
+                            <div class="text-tab drop-tab">
+                                <textarea rows="10" placeholder="Write Description"></textarea>
+                            </div>
+                            <div class="text-tab drop-tab">
+                                <span class="con-icon"><i class="icon-tag_friends"></i></span>
+                                <input type="text" class="code-con" placeholder="Tag Friends">
+                            </div>
+                            <div class="text-tab drop-tab switch-outer">
+                                <div class="switch round off"><input type="checkbox"><div class="toggle"></div></div>
+                                <input type="text" class="code-con" placeholder="18+ Content" readonly>
+                            </div>
+                            <div class="text-tab drop-tab">
+                                <span class="con-icon"><i class="icon-chosse_ad"></i></span>
+                                @*<input type="text" class="code-con" placeholder="Choose Ads">*@
+                                <a type="text" class="code-con" href="~/User/ChooseAds">Choose Ads</a>
+                            </div>
+                            <div class="text-right pt15">
+                                <input type="submit" class="btn-main signup" value="POST" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+

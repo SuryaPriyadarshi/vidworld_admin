@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Review_Login";
+}
+
+<script src="~/Scripts/Js_Controllers/Reviewer.Js"></script>
+
+ <div class="content" ng-controller="Reviewer_login">
+    <div class="form-box">
+        <form>
+            <div class="input-row">
+                <input type="text" name="" placeholder="Username/Email/Phone Number" ng-model="LogInReviewer" required autofocus>
+            </div>
+            <div class="input-row">
+                <input type="password" name="" placeholder="Password" ng-model="LogInPassword" required>
+            </div>
+            <div class="input-row">
+                <input type="submit" name="" value="Log In" ng-click="logInApi()">
+            </div>
+        </form>
+        <p>Forgot password ? Send an email to Vid world <a href="#">Click Here</a></p>
+    </div>
+</div>
