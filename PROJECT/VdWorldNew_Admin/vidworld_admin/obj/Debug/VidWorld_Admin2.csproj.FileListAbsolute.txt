@@ -1,6 +1,0 @@
-C:\PROJECT\NodeJS\trunk\server\VidWorldAdminPanel\VidWorld_Admin2\VidWorld_Admin2\bin\VidWorld_Admin2.dll.config
-C:\PROJECT\NodeJS\trunk\server\VidWorldAdminPanel\VidWorld_Admin2\VidWorld_Admin2\bin\VidWorld_Admin2.dll
-C:\PROJECT\NodeJS\trunk\server\VidWorldAdminPanel\VidWorld_Admin2\VidWorld_Admin2\bin\VidWorld_Admin2.pdb
-C:\PROJECT\NodeJS\trunk\server\VidWorldAdminPanel\VidWorld_Admin2\VidWorld_Admin2\obj\Debug\VidWorld_Admin2.dll
-C:\PROJECT\NodeJS\trunk\server\VidWorldAdminPanel\VidWorld_Admin2\VidWorld_Admin2\obj\Debug\VidWorld_Admin2.pdb
-C:\PROJECT\NodeJS\trunk\server\VidWorldAdminPanel\VidWorld_Admin2\VidWorld_Admin2\obj\Debug\VidWorld_Admin2.csprojResolveAssemblyReference.cache
