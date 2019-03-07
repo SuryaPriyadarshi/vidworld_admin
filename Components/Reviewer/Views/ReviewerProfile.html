@@ -1,0 +1,256 @@
+﻿<div class="m-content" ng-controller="ReviewerProfileController">
+    <!--Begin::Section-->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="m-portlet">
+                <div class="m-portlet__body" ng-show="vm.IsReviewer">
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <h5>{{vm.ReviewerProfile.UserName}}</h5>
+                            <p>
+                                {{vm.ReviewerProfile.Email}}<br />
+                                {{vm.ReviewerProfile.PhoneNumber}}
+                            </p>
+                        </div>
+                        <div class="col-xl-6 text-right align-middle">
+                            <a class="btn btn-danger" ng-click="vm.ReviewerDelete(vm.ReviewerProfile.UserId)">Delete</a>
+                            <!--<a class="btn btn-info" data-toggle="modal" data-target="#change_password">Change Password</a>-->
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-8">
+                            <ul class="nav nav-pills nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active show" data-toggle="tab" href="approved" ng-click="vm.ApprovedList(vm.id,1)">
+                                        Approved
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="rejected" ng-click="vm.RejectList(vm.id,1)">
+                                        Rejected
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active show" ng-class="{'active':vm.Approve==true}" id="approved" role="tabpanel" ng-show="vm.Approve">
+                                    <div class="post-wrapper" ng-show="vm.IsPost">
+                                        <div class="post" ng-repeat="(key,item) in vm.ApprovedPost">
+                                            <div class="post-user">
+                                                
+                                                    <img src={{item.ProfileImageUrl==''?'/Assets/images/profile.jpg':item.ProfileImageUrl}} height="80" width="80" alt="">
+                                               
+                                                <h4 class="">{{item.Username}}</h4>
+                                                <p ng-if="item.PostViewerCount>0">{{item.PostViewerCount}}&nbsp;{{item.PostViewerCount==1?'view':'views'}}</p>
+                                            </div>
+                                            <div class="post-video">
+                                                <div class="video-thumb youtube">
+                                                    <img src={{item.ThumbnailUrl}} ng-click="vm.WatchVideo(item,$event)">
+                                                    <img src="Assets/images/play_small.png" class="video-play-icon" ng-click="vm.WatchVideo(item,$event)">
+                                                </div>
+                                                <div class="video">
+                                                    <iframe width="630" id="youtube_video" height="334" ng-src="{{item.ShowMediaUrl}}" frameborder="0" gesture="media" allow="autoplay" allowfullscreen></iframe>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="post-watch text-right">
+                                                <a class="btn btn-info" ng-click="vm.postDetailId(item)">Watch</a>
+                                            </div>
+                                            <h4 class="">{{item.Title}}</h4>
+                                            <div class="post-actions">
+                                                <ol>
+                                                    <li><i class="la la-heart"></i></li>
+                                                    <li><i class="la la-comment"></i></li>
+                                                </ol>
+                                            </div>
+                                            <p class="liked-by" ng-show="item.PostLikeCount>0">
+                                                Liked by
+                                                <span class="nw-name">{{item.LikeList[0].Username}}</span>
+                                                <span ng-show="item.PostLikeCount>1" class="nw-name">, {{item.LikeList[1].Username}}</span>
+                                                <!-- <a  ng-show="item.LikeList.length>2">, {{item.LikeList[2].Username}}</a>-->
+
+                                                <span class="cursor-pointer" data-toggle="modal" data-target="#like_list" ng-show="item.PostLikeCount>3" ng-click="vm.LikeListMethod(item)"> and {{item.PostLikeCount-2}} others.</span>
+                                            </p>
+                                            <!--<p class="view-all-comments" ng-show="item.PostCommentCount>2"><a href="" data-attribute="comment" ng-click="GetAllComments(item,1)">View all {{item.PostCommentCount}} {{item.PostCommentCount>1?'comments':'comment'}}</a></p>-->
+
+                                            <span class="view-all-comments cursor-pointer" ng-show="item.PostCommentCount>0" data-toggle="modal" data-target="#comment" ng-click="vm.getViewCommentData(item)">View all {{item.PostCommentCount}} {{item.PostCommentCount>1?'comments':'comment'}}</span>
+                                            <ol class="comments">
+                                                <li ng-show="item.CommentList.length>0"><span class="nw-name">{{item.CommentList[0].Username}}</span> <span class="dont-break" ng-bind-html="item.CommentList[0].Comment| highlight"></span><span ng-show="item.CommentList[0].Comment.length>1000">...</span></li>
+                                                <li ng-show="item.CommentList.length>1"><span class="nw-name">{{item.CommentList[1].Username}}</span> <span class="dont-break" ng-bind-html="item.CommentList[1].Comment| highlight"></span><span ng-show="item.CommentList[1].Comment.length>1000">...</span></li>
+                                            </ol>
+                                            <p class="post-time time">{{item.Ago|date:'MMM d, HH:mm'}}</p>
+                                        </div>
+                                        <div class="load-more text-center"><a href="" class="btn btn-info" ng-click="vm.ApprovedList(vm.id,vm.i)" ng-show="(vm.ApprovedPost.length<vm.ToatalUserPost && vm.ApprovedPost.length>=10)">Load more</a></div>
+                                    </div>
+                                    <div ng-show="!vm.IsPost" class="message-image" width="175">
+                                        <img src="../../../assets/images/no_posts_videos.png" />
+                                        <h4>No Post Found!</h4>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" ng-class="{'active':vm.Approve==false}" id="rejected" role="tabpanel" ng-show="!vm.Approve">
+                                    <div class="post-wrapper" ng-show="vm.IsPost">
+                                        <div class="post" ng-repeat="(key,item) in  vm.RejectedPost">
+                                            <div class="post-user">
+                                                
+                                                    <img src={{item.ProfileImageUrl==''?'/Assets/images/profile.jpg':item.ProfileImageUrl}} height="80" width="80" alt="">
+                                          
+                                                <h4 class="">{{item.Username}}</h4>
+                                                <p ng-if="item.PostViewerCount>0">{{item.PostViewerCount}}&nbsp;{{item.PostViewerCount==1?'view':'views'}}</p>
+                                            </div>
+                                            <div class="post-video">
+                                                <div class="video-thumb youtube">
+                                                    <img src={{item.ThumbnailUrl}} ng-click="vm.WatchVideo(item,$event)">
+                                                    <img src="Assets/images/play_small.png" class="video-play-icon" ng-click="vm.WatchVideo(item,$event)">
+                                                </div>
+                                                <div class="video">
+                                                    <iframe width="630" id="youtube_video" height="334" ng-src="{{item.ShowMediaUrl}}" frameborder="0" gesture="media" allow="autoplay" allowfullscreen></iframe>
+                                                </div>
+                                            </div>
+                                            <div class="post-watch text-right">
+                                                <a class="btn btn-info" ng-click="vm.postDetailId(item)">Watch</a>
+                                            </div>
+                                            <h4 class="">{{item.Title}}</h4>
+                                            <div class="post-actions">
+                                                <ol>
+                                                    <li><a><i class="la la-heart"></i></a></li>
+                                                    <li><a><i class="la la-comment"></i></a></li>
+                                                </ol>
+                                            </div>
+                                            <p class="liked-by" ng-show="item.PostLikeCount>0">
+                                                Liked by
+                                                <span class="nw-name">{{item.LikeList[0].Username}}</span>
+                                                <span ng-show="item.PostLikeCount>1" class="nw-name">, {{item.LikeList[1].Username}}</span>
+                                                <!-- <a  ng-show="item.LikeList.length>2">, {{item.LikeList[2].Username}}</a>-->
+                                                <span class="cursor-pointer" ng-show="item.PostLikeCount>3">.P and {{item.PostLikeCount-2}} others.</span></span>
+                                            </p>
+                                            <p class="view-all-comments cursor-pointer" ng-show="item.PostCommentCount>0"><a href="" data-attribute="comment" ng-click="GetAllComments(item,1)">View all {{item.PostCommentCount}} {{item.PostCommentCount>1?'comments':'comment'}}</a></p>
+                                            <ol class="comments">
+                                                <li ng-show="item.CommentList.length>0"><span class="nw-name">{{item.CommentList[0].Username}}</span> <span class="dont-break" ng-bind-html="item.CommentList[0].Comment| highlight"></span><span ng-show="item.CommentList[0].Comment.length>1000">...</span></li>
+                                                <li ng-show="item.CommentList.length>1"><span class="nw-name">{{item.CommentList[1].Username}}</span> <span class="dont-break" ng-bind-html="item.CommentList[1].Comment| highlight"></span><span ng-show="item.CommentList[1].Comment.length>1000">...</span></li>
+                                            </ol>
+                                            <p class="post-time time">{{item.Ago|date:'MMM d, HH:mm'}}</p>
+                                        </div>
+
+                                        <div class="load-more text-center"><a href="" class="btn btn-info" ng-click="vm.RejectList(vm.id,vm.i)" ng-show="(vm.RejectedPost.length<vm.ToatalUserPost && vm.RejectedPost.length>=10)">Load more</a></div>
+                                    </div>
+                                    <div ng-show="!vm.IsPost" class="message-image" width="175">
+                                        <img src="../../../assets/images/no_posts_videos.png" />
+                                        <h4>No Post Found!</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="!vm.IsReviewer" class="message-image" width="175">
+                    <img src="../../../assets/images/no_users_empty.png" />
+                    <h4>No Reviewer Found!</h4>
+                </div>
+            </div>
+      
+
+        </div>
+
+    </div>
+ 
+    <!--End::Section-->
+
+    <div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Comments
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            &times;
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="suggestions-box" id="comment_div">
+                        <ol class="suggestions-list comment-list">
+                            <li>
+                                <div class="super-comment">
+                                    <div class="profile-info">
+                                        <div class="profile_thumb">
+                                            <img src="https://s3.amazonaws.com/vidworld/E751F653-9F1D-4227-9C39-37D7D32ABAC1-4589-0000041365BA30E8.png" alt="">
+                                        </div>
+                                        <div class="profile-name">
+                                            <h4 class="cursor-pointer">jobin john <span class="comment newlist dont-break">Hello</span></h4>
+                                            <div class="time_reply">
+                                                <span class="comment-time time">2 MINUTES AGO</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profile-action">
+                                        <ol>
+                                            <li>
+                                                <span class="like active">
+                                                    <a><i class="la la-heart"></i></a>
+                                                    <span class="count">0</span>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <a href="" class="more"><i class="la la-ellipsis-h"></i></a>
+                                                <ul class="more-options delete-comment">
+                                                    <li class="cursor-pointer"><a>Reply</a></li>
+                                                    <li class="cursor-pointer"><a>Hide all Comments from this User</a></li>
+                                                    <li class="cursor-pointer"><a>Report Comment</a></li>
+                                                    <li class="cursor-pointer"><a href="">Delete Comment</a></li>
+                                                </ul>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <div class="view_hide">
+                                        <a class="cursor-pointer">Hide all replies(1)</a>
+                                    </div>
+                                </div>
+                                <ol>
+                                    <li>
+                                        <div class="sub-comment">
+                                            <div class="profile-info">
+                                                <div class="profile_thumb">
+                                                    <img src="https://s3.amazonaws.com/vidworld/E751F653-9F1D-4227-9C39-37D7D32ABAC1-4589-0000041365BA30E8.png" height="45" width="45" alt="">
+                                                </div>
+                                                <div class="profile-name">
+                                                    <h4 class="cursor-pointer">jobin john <span class="comment"><a rel="nofollow" class="hashTag cursor-pointer">@jobin.john</a> Hello</span></h4>
+                                                    <div class="time_reply">
+                                                        <span class="comment-time time">1 MINUTE AGO</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="profile-action">
+                                                <ol>
+                                                    <li>
+                                                        <span class="like">
+                                                            <a><i class="la la-heart"></i></a>
+                                                            <span class="count">0</span>
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <a href="" class="more"><i class="la la-ellipsis-h"></i></a>
+                                                        <ul class="more-options delete-comment">
+                                                            <li class="cursor-pointer"><a>Delete Comment</a></li>
+                                                            <li class="cursor-pointer"><a>Report Reply</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

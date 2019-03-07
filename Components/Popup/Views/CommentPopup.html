@@ -1,0 +1,107 @@
+﻿<div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="CommentController">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Comments
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click ="vm.resetComment()">
+                    <span aria-hidden="true">
+                        &times;
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="suggestions-box" id="comment_div">
+                    <ol class="suggestions-list comment-list">
+                        <li ng-repeat="obj in vm.CommentList">
+                            <div class="super-comment">
+                                <div class="profile-info">
+                                    <div class="profile_thumb">
+                                        <img src="{{obj.ProfileImageUrl==''?'/Assets/images/profile.jpg':obj.ProfileImageUrl}}" alt="">
+                                    </div>
+                                    <div class="profile-name">
+                                        <h4>{{obj.Username}}<span class="comment newlist dont-break">{{obj.Comment}}</span></h4>
+                                        <div class="time_reply">
+                                            <span class="comment-time time">{{obj.CommentAgo|date:'MMM d, HH:mm'}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="profile-action">
+                                    <ol>
+                                        <li>
+                                            <span class="like active">
+                                                <a><i class="la la-heart"></i></a>
+                                                <span class="count"ng-show="obj.LikeCount>0">{{obj.LikeCount}}</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <!--<a href="" class="more"><i class="la la-ellipsis-h"></i></a>-->
+                                            <!--<ul class="more-options delete-comment">
+                                                <li class="cursor-pointer"><a>Reply</a></li>
+                                                <li class="cursor-pointer"><a>Hide all Comments from this User</a></li>
+                                                <li class="cursor-pointer"><a>Report Comment</a></li>
+                                                <li class="cursor-pointer"><a href="">Delete Comment</a></li>
+                                            </ul>-->
+                                        </li>
+                                    </ol>
+                                </div>
+                                <div class="view_hide">
+                                   
+                                    <a ng-click="vm.getAllReplies(obj.PostCommentId,obj)" ng-show="obj.ReplyCount">{{obj.IsViewAllComment==false?'View all replies':'Hide all replies'}}({{obj.ReplyCount}})</a>
+                                </div>
+                            </div>
+                            <ol>
+                                <li ng-repeat="requestList in obj.ChildCommentList" ng-show="obj.IsViewAllComment">
+                                    <div class="sub-comment">
+                                        <div class="profile-info">
+                                            <div class="profile_thumb">
+                                                <img src={{requestList.ProfileImageUrl==''?'/Assets/images/profile.jpg':requestList.ProfileImageUrl}} height="45" width="45" alt="">
+                                            </div>
+                                            <!--<div class="profile-name">
+                                                <h4 class="cursor-pointer">{{requestList.DisplayName==''?requestList.Username:requestList.DisplayName}}  <span class="comment"><a rel="nofollow" class="hashTag cursor-pointer">@jobin.john</a> Hello</span></h4>
+                                                <div class="time_reply">
+                                                    <span class="comment-time time">1 MINUTE AGO</span>
+                                                </div>
+                                            </div>-->
+                                            <div class="profile-name">
+                                                <h4 class="cursor-pointer">{{requestList.DisplayName==''?requestList.Username:requestList.DisplayName}} <span class="comment">{{requestList.Reply}}</span></h4>
+                                                <div class="time_reply">
+                                                    <span class="comment-time time">{{requestList.CommentAgo|date:'MMM d, HH:mm'}}</span>
+                                                 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="profile-action">
+                                            <ol>
+                                                <!--<li>
+                                                    <span class="like">
+                                                        <a><i class="la la-heart"></i></a>
+                                                        <span class="count">0</span>
+                                                    </span>
+                                                </li>-->
+                                                <li>
+                                                    <span  class="like">
+                                                        <a><i class="icon-like_icon"></i></a>
+                                                        <span class="count" ng-show="requestList.LikeCount>0">{{requestList.LikeCount}}</span>
+                                                    </span>
+                                                </li>
+                                                <!--<li>
+                                                    <a href="" class="more"><i class="la la-ellipsis-h"></i></a>
+                                                    <ul class="more-options delete-comment">
+                                                        <li class="cursor-pointer"><a>Delete Comment</a></li>
+                                                        <li class="cursor-pointer"><a>Report Reply</a></li>
+                                                    </ul>
+                                                </li>-->
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

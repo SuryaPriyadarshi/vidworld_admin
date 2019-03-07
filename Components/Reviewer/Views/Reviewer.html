@@ -1,0 +1,158 @@
+﻿<div class="m-content" ng-controller="ReviewerController">
+    <!--Begin::Section-->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="m-portlet">
+                <div class="m-portlet__head">
+                    <div class="m-portlet__head-tools">
+                        <ul class="m-portlet__nav">
+                            <li class="m-portlet__nav-item">
+
+                                <a data-toggle="modal" data-target="#new_reviewer" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--pill m-btn--air" ng-click="vm.reset()">
+                                    <span>
+                                        <i class="la la-plus"></i>
+                                        <span>
+                                            Add New Reviewer
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-portlet__nav-item">
+                                <div class="m-input-icon m-input-icon--left">
+                                    <input type="text" class="form-control m-input m-input--pill" placeholder="Search" ng-model="vm.SearchReviewer" ng-change="vm.searchReviewerList(vm.SearchReviewer,1)">
+                                    <span class="m-input-icon__icon m-input-icon__icon--left">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-portlet__body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered m-table m-table--border-brand m-table--head-bg-brand">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Sr. No.
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Email ID
+                                    </th>
+                                    <th>
+                                        Mobile
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="(key,item) in  vm.ReviewerList">
+                                    <td scope="row">
+                                        {{key+((currentPage - 1) * 10)+1}}
+                                    </td>
+                                    <td>
+                                        {{item.UserName}}
+                                    </td>
+                                    <td>
+                                        {{item.Email}}
+                                    </td>
+                                    <td>
+                                        {{item.PhoneNumber}}
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-success btn-sm" ng-click="vm.GetProfileId(item)">View</a>
+                                        <a class="btn btn-secondary btn-sm" ng-click="vm.BlockReviewer(item)">{{item.Block}}</a>
+                                        <a class="btn btn-outline-danger btn-sm" ng-click="vm.DeleteReviewer(item)">Delete</a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="paging text-right">
+                        <a ng-show="currentPage>1" ng-click="prevPage()" class="btn btn-info">« Prev</a>
+                        <a ng-click="nextPage()" ng-show="(vm.ReviewerList.length >= 10 && totalCount > currentPage * pageSize)" class="btn btn-info">Next »</a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="new_reviewer" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                New Reviewer
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">
+                                    &times;
+                                </span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form name="addEmployeeform" novalidate>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="form-control-label">
+                                        Name:
+                                    </label>
+                                    <input type="text" class="form-control" id="recipient-name" ng-model="vm.Name" required>
+                                    <p class="inp-error" ng-show="vm.addEmployee && !vm.Name">{{'Please enter Name'}}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email-text" class="form-control-label">
+                                        Email:
+                                    </label>
+                                    <input type="text" class="form-control" id="email-text" ng-model="vm.Email" ng-pattern="/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/" required>
+                                    <p class="inp-error" ng-show="vm.addEmployee && !vm.Email">{{'Please enter valid Email'}}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone-text" class="form-control-label">
+                                        Phone:
+                                    </label>
+                                    <input type="text" class="form-control" id="phone-text" maxlength="15" ng-model="vm.Phone" onkeypress="return isNumberKey(event)" required>
+                                    <p class="inp-error" ng-show="vm.addEmployee && !vm.Phone">{{'Please enter valid Phone Number'}}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password-text" class="form-control-label">
+                                        Assign Password:
+                                    </label>
+                                    <input type="password" class="form-control" id="password-text" name="password-text" ng-model="vm.Password" ng-pattern="vm.passwordRegEx" required>
+                                    <p class="inp-error" ng-show="vm.addEmployee && !vm.Password">{{'Please enter valid Password : 6 to 15 characters including 1 special character'}}</p>
+                                    <span ng-show="addEmployeeform.password-text.$error.pattern && vm.addEmployee " class="inp-error">Password must contain 6 to 15 characters including 1 special character</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Confirm-text" class="form-control-label">
+                                        Confirm Password:
+                                    </label>
+                                    <input type="password" class="form-control" id="Confirm-text" ng-model="vm.CPassword" required>
+                                    <p class="inp-error" ng-show="vm.addEmployee && !vm.CPassword">{{'Please enter Confirm Password'}}</p>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                Cancel
+                            </button>
+                            <button type="button" class="btn btn-info" ng-click="vm.SetValues()">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!--End::Section-->
+</div>
+
+
+
+

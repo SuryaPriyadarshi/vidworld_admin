@@ -1,0 +1,228 @@
+﻿<div class="m-content" ng-controller="UserProfileController">
+    <!--Begin::Section-->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="m-portlet">
+                <div class="m-portlet__body" ng-show="vm.IsUser">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="user-thumb pull-left">
+                                <img src={{vm.UserProfile[0].ProfileImageUrl==''?'/Assets/images/profile.jpg':vm.UserProfile[0].ProfileImageUrl}} height="80" width="80" alt="">
+                            </div>
+                            <h4>{{vm.UserProfile[0].Username}}
+                                <a href="javascript:void(0);" ng-show="vm.ShowEdit" ng-click="vm.ShowEdit=false" class="edit">edit</a>
+                                <a href="javascript:void(0);" ng-show="!vm.ShowEdit" ng-click="vm.saveProfile()" class="save">save</a>
+                            </h4>
+                            <h6>{{vm.UserProfile[0].Country}}</h6>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-right">
+                                <h5>App Ratings</h5>
+                                <div class="rating">
+                                    <i class="la la-star-o" ng-class="{'active':vm.UserProfile[0].AppRating>=1}"></i>
+                                    <i class="la la-star-o" ng-class="{'active':vm.UserProfile[0].AppRating>=2}"></i>
+                                    <i class="la la-star-o" ng-class="{'active':vm.UserProfile[0].AppRating>=3}"></i>
+                                    <i class="la la-star-o" ng-class="{'active':vm.UserProfile[0].AppRating>=4}"></i>
+                                    <i class="la la-star-o" ng-class="{'active':vm.UserProfile[0].AppRating==5}"></i>
+                                </div>
+                            </div>
+                            <h5 class="text-right">Pending Amount: ${{vm.UserProfile[0].PendingAmount}}<br />Total Amount: ${{vm.PaymentRevenueList[0].TotalAmount}}</h5>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="user-detail">
+                                <div class="row">
+                                    <label class="col-md-4">Username</label>
+                                    <div class="col-md-8">
+                                        <input type="text" value="{{vm.UserProfile[0].Username}}" ng-model="vm.UserProfile[0].Username" disabled class="form-control edit-input" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-4">Display Name</label>
+                                    <div class="col-md-8">
+                                        <input type="text" value="{{vm.UserProfile[0].DisplayName}}" ng-model="vm.UserProfile[0].DisplayName" disabled class="form-control edit-input" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-4">Real Name</label>
+                                    <div class="col-md-8">
+                                        <input type="text" value="{{vm.UserProfile[0].RealName}}" ng-model="vm.UserProfile[0].RealName" disabled class="form-control edit-input" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-4">Email</label>
+                                    <div class="col-md-8">
+                                        <input type="text" value="{{vm.UserProfile[0].Email}}" disabled class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-4">Phone Number</label>
+                                    <div class="col-md-8">
+                                        <input type="text" value="{{vm.UserProfile[0].PhoneNumber}}" disabled class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-4">Website</label>
+                                    <div class="col-md-8">
+                                        <input type="text" value="{{vm.UserProfile[0].Website}}" ng-model="vm.UserProfile[0].Website" disabled class="form-control edit-input" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="border-left: 1px solid #e5e5e5;">
+                            <h5>Bio</h5>
+                            <textarea rows="14" class="form-control edit-input" ng-model="vm.UserProfile[0].Bio" disabled>{{vm.UserProfile[0].Bio}}</textarea>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8">
+                            <ul class="nav nav-pills nav-fill nav-fill-black" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" ng-class="{'active':vm.UserPost==true}" ng-click="vm.UserPostList(vm.id,1)">
+                                        View Posts
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" ng-class="{'active':vm.UserPost==false}" ng-click="vm.UserRevenue(vm.id)">
+                                        Revenue Details
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane" id="view_post" ng-class="{'active':vm.UserPost==true}" ng-show="vm.UserPost">
+                                    <div class="post-wrapper" ng-show="vm.IsPost">
+                                        <div class="post" ng-repeat="(key,item) in vm.UserViewPost">
+                                            <div class="post-user">
+                                               
+                                                    <img src={{item.ProfileImageUrl==''?'/Assets/images/profile.jpg':item.ProfileImageUrl}} height="80" width="80" alt="">
+                                               
+                                                <h4 class="">{{item.Username}}</h4>
+                                                <p ng-if="item.PostViewerCount>0">{{item.PostViewerCount}}&nbsp;{{item.PostViewerCount==1?'view':'views'}}</p>
+                                            </div>
+                                            <div class="post-video">
+                                                <div class="video-thumb youtube">
+                                                    <img src={{item.ThumbnailUrl}} ng-click="vm.WatchVideo(item,$event)">
+                                                    <img src="Assets/images/play_small.png" class="video-play-icon" ng-click="vm.WatchVideo(item,$event)">
+                                                </div>
+                                                <div class="video">
+                                                    <iframe width="630" id="youtube_video" height="334" ng-src="{{item.ShowMediaUrl}}" frameborder="0" gesture="media" allow="autoplay" allowfullscreen></iframe>
+                                                </div>
+                                            </div>
+                                            <div class="post-watch text-right">
+                                                <a class="btn btn-info" ng-click="vm.postDetailId(item)">Watch</a>
+                                            </div>
+                                            <h4 class="">{{item.Title}}</h4>
+                                            <div class="post-actions">
+                                                <ol>
+                                                    <li><i class="la la-heart"></i></li>
+                                                    <li><i class="la la-comment"></i></li>
+                                                </ol>
+                                            </div>
+                                            <p class="liked-by" ng-show="item.PostLikeCount>0">
+                                                Liked by
+                                                <span class="nw-name">{{item.LikeList[0].Username}}</span>
+                                                <span ng-show="item.PostLikeCount>1" class="nw-name">, {{item.LikeList[1].Username}}</span>
+                                                <!-- <a  ng-show="item.LikeList.length>2">, {{item.LikeList[2].Username}}</a>-->
+                                                <span class="cursor-pointer" ng-show="item.PostLikeCount>3" ng-click="vm.LikeListMethod(item)" data-toggle="modal" data-target="#like_list"> and {{item.PostLikeCount-2}} others.</span>
+                                            </p>
+                                            <p class="view-all-comments cursor-pointer" ng-show="item.PostCommentCount>0"><a href="" data-attribute="comment" ng-click="vm.getViewCommentData(item)" data-toggle="modal" data-target="#comment">View all {{item.PostCommentCount}} {{item.PostCommentCount>1?'comments':'comment'}}</a></p>
+                                            <ol class="comments">
+                                                <li ng-show="item.CommentList.length>0"><span class="nw-name">{{item.CommentList[0].Username}}</span> <span class="dont-break" ng-bind-html="item.CommentList[0].Comment| highlight"></span><span ng-show="item.CommentList[0].Comment.length>1000">...</span></li>
+                                                <li ng-show="item.CommentList.length>1"><span class="nw-name">{{item.CommentList[1].Username}}</span> <span class="dont-break" ng-bind-html="item.CommentList[1].Comment| highlight"></span><span ng-show="item.CommentList[1].Comment.length>1000">...</span></li>
+                                            </ol>
+                                            <p class="post-time time">{{item.Ago|date:'MMM d, HH:mm'}}</p>
+                                        </div>
+                                        <div class="load-more text-center"><a href="" ng-click="vm.UserPostList(vm.id,vm.i)" class="btn btn-info" ng-show="(vm.UserViewPost.length<vm.ToatalUserPost && vm.UserViewPost.length>=10)">Load more</a></div>
+                                    </div>
+                                    <div ng-show="!vm.IsPost" class="message-image" width="175">
+                                        <img src="../../../assets/images/no_posts_videos.png" />
+                                        <h4>No Post Found!</h4>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="revenue_details" ng-class="{'active':vm.UserPost==false}" ng-show="!vm.UserPost">
+                                    <ul class="nav nav-pills nav-fill" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="" ng-class="{'active':vm.Payment==false}" ng-click="vm.showPost(vm.id)">
+                                                Post Detail
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="" ng-class="{'active':vm.Payment==true}" ng-click="vm.showPayment(vm.id)">
+                                                Payment Story
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane" id="post_detail" ng-show="!vm.Payment" ng-class="{'active':vm.Payment==false}">
+                                            <div class="week-wrap">
+                                                <table class="table table-inverse">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Title</th>
+                                                            <th>Clicks</th>
+                                                            <th>Revenue</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="item in vm.PostRevenueList">
+                                                            <td>{{item.PostCreatedDate | date:'dd/MM/yyyy'}}</td>
+                                                            <td><a ng-click="vm.postDetailId(item)">{{item.Title}}</a></td>
+                                                            <td>{{item.Clicks}}</td>
+                                                            <td>${{item.Amount}}</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="payment_story" ng-show="vm.Payment" ng-class="{'active':vm.Payment==true}">
+                                            <table class="table table-inverse">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Date
+                                                        </th>
+                                                        <th>
+                                                            Title of Post
+                                                        </th>
+                                                        <th>
+                                                            Amount Received
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="item in vm.PaymentRevenueList">
+                                                        <td>{{item.RevenueCreatedDate | date:'dd/MM/yyyy'}}</td>
+                                                        <td><a ng-click="vm.PostDetailPage(item)">{{item.Title}}</a></td>
+                                                        <td>${{item.Amount}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div ng-show="!vm.IsUser" class="message-image" width="175">
+                    <img src="../../../assets/images/no_users_empty.png" />
+                    <h4>No User Found!</h4>
+                </div>
+            </div>       
+
+        </div>
+
+    </div>
+    <!--End::Section-->
+</div>
